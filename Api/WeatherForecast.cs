@@ -19,7 +19,7 @@ namespace Api
             ILogger log,
             int daysToForecast)
         {
-            return new OkObjectResult(GetWeather(daysToForecast));
+            return await Task.Run(() => new OkObjectResult(GetWeather(daysToForecast)));
         }
 
         private static dynamic[] GetWeather(int daysToForecast)
@@ -30,7 +30,7 @@ namespace Api
             var rnd = new Random();
             foreach (var day in enumerator)
             {
-                var temp = rnd.Next(25);
+                var temp = rnd.Next(39);
                 var summary = GetSummary(temp);
                 result.Add(new
                 {
@@ -46,8 +46,8 @@ namespace Api
         {
             return temp switch
             {
-                int i when (i > 20) => "Hot!",
-                int i when (i > 15) => "Warm",
+                int i when (i > 30) => "Hot!",
+                int i when (i > 22) => "Warm",
                 int i when (i > 10) => "Cool",
                 int i when (i > 5) => "Cold",
                 _ => "Too cold!",
