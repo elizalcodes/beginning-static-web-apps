@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16]
+        os: [windows-latest, ubuntu-latest]
+        node: [16]
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v2
